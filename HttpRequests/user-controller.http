@@ -1,0 +1,33 @@
+###GetAll
+GET {{base-url}}/api/users/getAll
+
+###GetById
+GET {{base-url}}/api/users/{{id}}
+
+###Add
+POST {{base-url}}/api/users/add
+Content-Type: application/json
+
+{
+  "userName": "wwww",
+  "email": "wick@john",
+  "password":"123test"
+}
+
+###Update
+PUT {{base-url}}/api/users/update
+Content-Type: application/json
+
+{
+  "id":1,
+  "userName": "john",
+  "email": "wick@john"
+}
+
+###Delete
+DELETE {{base-url}}/api/users/{{id}}
+
+
+
+
+

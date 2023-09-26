@@ -1,0 +1,38 @@
+###GetAll
+GET {{base-url}}/api/products/getAll
+
+###GetById
+GET {{base-url}}/api/products/{{id}}
+
+###Add
+POST {{base-url}}/api/products/add
+Content-Type: application/json
+
+{
+  "name": "tablet",
+  "price": 1000.0,
+  "stock": 11,
+  "description": "iphone tablet",
+  "category": null
+}
+
+###Update
+PUT {{base-url}}/api/products/update
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "tablet",
+  "price": 2000.0,
+  "stock": 22,
+  "description": "samsung tablet",
+  "category": null
+}
+
+###Delete
+DELETE {{base-url}}/api/products/{{id}}
+
+
+
+
+

@@ -1,0 +1,23 @@
+###GetAll
+GET {{base-url}}/api/orders/getAll
+
+###GetById
+GET {{base-url}}/api/orders/{{id}}
+
+###Add
+POST {{base-url}}/api/orders/add
+Content-Type: application/json
+
+{
+  "totalAmount": 1000.0,
+  "customer": null,
+  "orderItem": []
+}
+
+###Delete
+DELETE {{base-url}}/api/orders/{{id}}
+
+
+
+
+

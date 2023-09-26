@@ -1,0 +1,37 @@
+###GetAll
+GET {{base-url}}/api/paymentCards/getAll
+
+###GetById
+GET {{base-url}}/api/paymentCards/{{id}}
+
+###Add
+POST {{base-url}}/api/paymentCards/add
+Content-Type: application/json
+
+{
+  "cardNumber": 555555555,
+  "cardHolderName": "john wick",
+  "expirationDate": "2023-12-10",
+  "cvv": 777,
+  "customer": null
+}
+
+###Update
+PUT {{base-url}}/api/paymentCards/update
+Content-Type: application/json
+
+{
+  "id":1,
+  "cardNumber": 11111111111,
+  "cardHolderName": "john wick",
+  "expirationDate": "2023-12-10",
+  "cvv": 777,
+  "customer": null
+}
+
+###Delete
+DELETE {{base-url}}/api/paymentCards/{{id}}
+
+
+
+

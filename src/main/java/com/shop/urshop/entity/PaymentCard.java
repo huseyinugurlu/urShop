@@ -1,16 +1,14 @@
 package com.shop.urshop.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Table(name = "payment_card")
 @Getter
-@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -20,14 +18,14 @@ public class PaymentCard {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "cardNumber")
     private long cardNumber;
 
     @Column(name = "card_holder_name")
     private String cardHolderName;
 
     @Column(name = "expiration_date")
-    private Date expirationDate;
+    private LocalDate expirationDate;
 
     @Column(name = "cvv")
     private int cvv;

@@ -1,0 +1,11 @@
+###GetAll
+GET {{base-url}}/api/customerOffers/getAll
+
+###GetById
+GET {{base-url}}/api/customerOffers/{{id}}
+
+###Delete
+DELETE {{base-url}}/api/customerOffers/11
+
+
+

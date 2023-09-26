@@ -1,0 +1,30 @@
+###GetAll
+GET {{base-url}}/api/categories/getAll
+
+###GetById
+GET {{base-url}}/api/categories/{{id}}
+
+###Add
+POST {{base-url}}/api/categories/add
+Content-Type: application/json
+
+{
+    "name":"tablet"
+}
+
+###Update
+PUT {{base-url}}/api/categories/update
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name":"telefon"
+}
+
+###Delete
+DELETE {{base-url}}/api/categories/{{id}}
+
+
+
+
+
