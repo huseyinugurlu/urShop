@@ -1,33 +1,36 @@
 package com.shop.urshop.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.LocalDate;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Table(name = "usr")
 @Getter
-@Builder(toBuilder = true)
+// @Builder(toBuilder = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private int id;
 
-    @Column(name = "name")
-    private String userName;
+  @Column(name = "name")
+  private String userName;
 
-    @Column(name = "e_mail")
-    private String email;
+  @Column(name = "e_mail")
+  private String email;
 
-    @Column(name = "password")
-    private String password;
+  @Column(name = "password")
+  private String password;
 
-    @Column(name = "creation_date")
-    private LocalDate creationDate;
+  @Column(name = "authority")
+  private String authority;
 
+  @Column(name = "creation_date")
+  private String creationDate;
 }

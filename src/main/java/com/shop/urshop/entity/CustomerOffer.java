@@ -22,8 +22,7 @@ public class CustomerOffer {
     private float totalAmount;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customerOffer", cascade = CascadeType.ALL)
-    private Set<Product> products;
-
+    @OneToMany(mappedBy = "customerOffer")
+    private Set<ProductCustomerOfferMap> productCustomerOfferMaps;
 
 }

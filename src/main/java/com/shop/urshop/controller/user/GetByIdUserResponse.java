@@ -5,7 +5,7 @@ import com.shop.urshop.entity.User;
 
 import java.time.LocalDate;
 
-public record GetByIdUserResponse(String userName,String email,LocalDate creationDate) {
+public record GetByIdUserResponse(String userName,String email,String creationDate) {
 
     public static GetByIdUserResponse fromUser(User user){
         return new GetByIdUserResponse(user.getUserName(),user.getEmail(), user.getCreationDate());

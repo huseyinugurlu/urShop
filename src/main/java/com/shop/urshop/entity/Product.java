@@ -39,8 +39,8 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<ProductFeatureValueMap> productFeatureValueMap;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_offer_id")
-    private CustomerOffer customerOffer;
+    @JsonIgnore
+    @OneToMany(mappedBy = "product")
+    private Set<ProductCustomerOfferMap> productCustomerOfferMaps;
 
 }

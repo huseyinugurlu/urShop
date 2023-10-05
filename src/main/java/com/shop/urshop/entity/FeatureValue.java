@@ -17,20 +17,19 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 public class FeatureValue {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private int id;
 
-    @Column(name = "name")
-    private String name;
+  @Column(name = "name")
+  private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "feature_id")
-    private Feature feature;
+  @ManyToOne
+  @JoinColumn(name = "feature_id")
+  private Feature feature;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "featureValue")
-    private Set<ProductFeatureValueMap> productFeatureValueMap;
-
+  @JsonIgnore
+  @OneToMany(mappedBy = "featureValue")
+  private Set<ProductFeatureValueMap> productFeatureValueMap;
 }

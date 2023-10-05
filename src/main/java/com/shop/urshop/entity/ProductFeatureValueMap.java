@@ -13,17 +13,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 public class ProductFeatureValueMap {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+  @ManyToOne
+  @JoinColumn(name = "product_id")
+  private Product product;
 
-    @ManyToOne
-    @JoinColumn(name = "feature_value_id")
-    private FeatureValue featureValue;
-
+  @ManyToOne
+  @JoinColumn(name = "feature_value_id")
+  private FeatureValue featureValue;
 }

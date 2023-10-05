@@ -2,7 +2,6 @@ package com.shop.urshop.paymentCard;
 
 import com.shop.urshop.entity.PaymentCard;
 import com.shop.urshop.exception.BusinessException;
-import com.shop.urshop.exception.ResourceNotFoundException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

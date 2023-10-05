@@ -10,6 +10,6 @@ public record GetAllOfferResponse(float totalAmount, Set<Product> products) {
         return customerOffers.stream().map(GetAllOfferResponse::fromOffer).toList();
     }
     public static GetAllOfferResponse fromOffer(CustomerOffer customerOffer){
-        return new GetAllOfferResponse(customerOffer.getTotalAmount(), customerOffer.getProducts());
+        return new GetAllOfferResponse(customerOffer.getTotalAmount(), null);
     }
 }

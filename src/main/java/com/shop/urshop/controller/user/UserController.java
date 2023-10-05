@@ -39,7 +39,8 @@ public class UserController extends BaseController {
                 .userName(createUserRequest.userName())
                 .email(createUserRequest.email())
                 .password(createUserRequest.password())
-                .creationDate(LocalDate.now())
+                //.password(passwordEncoder.encode(createUserRequest.password()))
+                .creationDate(String.valueOf(LocalDate.now()))
                 .build();
         this.userService.add(user);
     }
@@ -59,5 +60,14 @@ public class UserController extends BaseController {
         this.userService.delete(id);
     }
 
+    @PostMapping("/changePassword")
+    public void changePassword(@RequestHeader("Authorization") String jwtToken, @RequestBody final ResetPswrdRequest resetPswrdRequest) {
+        this.userService.changePassword(resetPswrdRequest.getNewPassword(),jwtToken);
+    }
+
+    @PostMapping("/authenticate")
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        return userService.authenticate(authRequest);
+    }
 
 }

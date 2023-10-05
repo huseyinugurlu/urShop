@@ -7,6 +7,6 @@ import java.util.Set;
 
 public record GetByIdOfferResponse (float totalAmount, Set<Product> products) {
     public static GetByIdOfferResponse fromOffer(CustomerOffer customerOffer){
-        return new GetByIdOfferResponse(customerOffer.getTotalAmount(), customerOffer.getProducts());
+        return new GetByIdOfferResponse(customerOffer.getTotalAmount(), null);
     }
 }
