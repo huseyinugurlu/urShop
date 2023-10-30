@@ -1,18 +1,19 @@
 package com.shop.urshop.customer;
 
-import com.shop.urshop.entity.Category;
 import com.shop.urshop.entity.Customer;
 
 import java.util.List;
 
 public interface CustomerService {
-    List<Customer> getAll();
+  List<Customer> getAll();
 
-    Customer getByCustomerNumber(long customerNumber);
+  Customer getByCustomerNumber(long customerNumber);
 
-    void add(Customer customer);
+  Customer getById(int id);
 
-    void update(Customer customer);
+  void add(Customer customer);
 
-    void delete(int customerNumber);
+  void update(Customer customer);
+
+  void delete(int customerNumber);
 }

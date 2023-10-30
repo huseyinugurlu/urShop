@@ -1,65 +1,60 @@
 package com.shop.urshop.controller.product;
 
-import com.shop.urshop.controller.BaseController;
-import com.shop.urshop.entity.Product;
+import com.shop.urshop.controller.ApiConstants;
 import com.shop.urshop.product.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/products")
-public class ProductController extends BaseController {
+@RequestMapping(ApiConstants.BASE_URL + ApiConstants.PRODUCTS)
+public class ProductController {
 
-    private final ProductService productService;
+  private final ProductService productService;
 
-    @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+  @Autowired
+  public ProductController(ProductService productService) {
+    this.productService = productService;
+  }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getAll() {
-        final List<GetAllProductsResponse> data=GetAllProductsResponse.fromProducts(productService.getAll());
-        return success(data);
-    }
+  @GetMapping(ApiConstants.GET_ALL)
+  public List<GetAllProductsResponse> getAll() {
+    return GetAllProductsResponse.fromProducts(productService.getAll());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getByIdProductResponse(@PathVariable int id) {
-        final GetByIdProductResponse data=GetByIdProductResponse.fromProduct(productService.getById(id));
-        return success(data);
-    }
+  @GetMapping(ApiConstants.GET_BY_CATEGORY_ID + ApiConstants.BY_ID)
+  public List<GetAllProductsResponse> getByCategoryId(@PathVariable int id) {
+    return GetAllProductsResponse.fromProducts(productService.getByCategory(id));
+  }
 
-    @PostMapping("/add")
-    public void add(@RequestBody CreateProductRequest createProductRequest) {
-        Product product=Product.builder()
-                .productName(createProductRequest.name())
-                .price(createProductRequest.price())
-                .description(createProductRequest.description())
-                .stock(createProductRequest.stock())
-                .category(createProductRequest.category())
-                .build();
-        this.productService.add(product);
-    }
+  @GetMapping(ApiConstants.BY_ID)
+  public GetByIdProductResponse getByIdProductResponse(@PathVariable int id) {
+    return GetByIdProductResponse.fromProduct(productService.getById(id));
+  }
 
-    @PutMapping("/{productId}")
-    public void update(@RequestBody UpdateProductRequest updateProductRequest) {
-        Product product=Product.builder()
-                .productId(updateProductRequest.id())
-                .productName(updateProductRequest.name())
-                .price(updateProductRequest.price())
-                .description(updateProductRequest.description())
-                .stock(updateProductRequest.stock())
-                .category(updateProductRequest.category())
-                .build();
-        this.productService.update(product);
-    }
+  @PostMapping(ApiConstants.ADD)
+  public void add(@RequestBody CreateProductRequest createProductRequest) {
+    this.productService.add(
+        createProductRequest.name(),
+        createProductRequest.price(),
+        createProductRequest.stock(),
+        createProductRequest.description(),
+        createProductRequest.categoryId());
+  }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
-        this.productService.delete(id);
-    }
+  @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
+  public void update(@PathVariable int id, @RequestBody UpdateProductRequest updateProductRequest) {
+    this.productService.update(
+        id,
+        updateProductRequest.name(),
+        updateProductRequest.price(),
+        updateProductRequest.stock(),
+        updateProductRequest.description(),
+        updateProductRequest.categoryId());
+  }
 
+  @DeleteMapping(ApiConstants.BY_ID)
+  public void delete(@PathVariable int id) {
+    this.productService.delete(id);
+  }
 }

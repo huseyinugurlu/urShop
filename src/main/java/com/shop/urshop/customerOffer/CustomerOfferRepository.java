@@ -1,7 +1,6 @@
 package com.shop.urshop.customerOffer;
 
 import com.shop.urshop.entity.CustomerOffer;
-import jakarta.persistence.Id;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

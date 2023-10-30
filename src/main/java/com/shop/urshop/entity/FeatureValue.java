@@ -2,15 +2,13 @@ package com.shop.urshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
-
-@Table(name = "feature_value")
+@Table(name = "feature_values")
 @Getter
 @Setter
 @AllArgsConstructor

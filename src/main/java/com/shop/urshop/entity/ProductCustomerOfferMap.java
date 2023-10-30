@@ -3,9 +3,7 @@ package com.shop.urshop.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
-@Table(name = "product_customer_offer_map")
+@Table(name = "product_customer_offer_maps")
 @Getter
 @Builder
 @AllArgsConstructor
@@ -15,7 +13,7 @@ public class ProductCustomerOfferMap {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
-  private int mapId;
+  private int id;
 
   @ManyToOne
   @JoinColumn(name = "product_id")

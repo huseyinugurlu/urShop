@@ -1,49 +1,43 @@
 package com.shop.urshop.controller.order;
 
-import com.shop.urshop.controller.BaseController;
-import com.shop.urshop.entity.Order;
+import com.shop.urshop.controller.ApiConstants;
 import com.shop.urshop.order.*;
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/orders")
-public class OrderController extends BaseController {
+@RequestMapping(ApiConstants.BASE_URL + ApiConstants.ORDERS)
+public class OrderController {
 
-    private final OrderService orderService;
+  private final OrderService orderService;
 
-    @Autowired
-    public OrderController(OrderService orderService){this.orderService=orderService;}
+  @Autowired
+  public OrderController(OrderService orderService) {
+    this.orderService = orderService;
+  }
 
+  @GetMapping(ApiConstants.GET_ALL)
+  public List<GetAllOrderResponse> getAll() {
+    return GetAllOrderResponse.fromOrders(orderService.getAll());
+  }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getAll() {
-        final List<GetAllOrderResponse> data = GetAllOrderResponse.fromOrders(orderService.getAll());
-        return success(data);
-    }
+  @GetMapping(ApiConstants.BY_ID)
+  public GetByIdOrderResponse getByIdOrderResponse(@PathVariable int id) {
+    return GetByIdOrderResponse.fromOrder(orderService.getById(id));
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getByIdOrderResponse(@PathVariable int id) {
-        final GetByIdOrderResponse data = GetByIdOrderResponse.fromOrder(orderService.getById(id));
-        return success(data);
-    }
+  @PostMapping(ApiConstants.ADD)
+  public void add(@RequestBody CreateOrderRequest createOrderRequest) {
+    this.orderService.add(
+        createOrderRequest.totalAmount(),
+        createOrderRequest.orderDate(),
+        createOrderRequest.customerId(),
+        createOrderRequest.orderItemIds());
+  }
 
-    @PostMapping("/add")
-    public void add(@RequestBody CreateOrderRequest createOrderRequest) {
-        final Order order = Order.builder()
-                .totalAmount(createOrderRequest.totalAmount())
-                .orderItem(createOrderRequest.orderItem())
-                .customer(createOrderRequest.customer())
-                .orderDate(LocalDate.now())
-                .build();
-        this.orderService.add(order);
-    }
-    
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
-        this.orderService.delete(id);
-    }
+  @DeleteMapping(ApiConstants.BY_ID)
+  public void delete(@PathVariable int id) {
+    this.orderService.delete(id);
+  }
 }

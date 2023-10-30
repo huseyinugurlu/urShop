@@ -1,16 +1,15 @@
 package com.shop.urshop.customerOffer;
 
-import com.shop.urshop.productCustomerOfferMap.ProductCustomerOfferMapRepository;
 import com.shop.urshop.entity.CustomerOffer;
 import com.shop.urshop.entity.Product;
 import com.shop.urshop.entity.ProductCustomerOfferMap;
 import com.shop.urshop.product.ProductRepository;
+import com.shop.urshop.productCustomerOfferMap.ProductCustomerOfferMapRepository;
+import java.util.*;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class CreateCustomerOffer {
@@ -51,7 +50,7 @@ public class CreateCustomerOffer {
     return customerOffer;
   }
 
-  @Scheduled(fixedRate = 30000)
+  @Scheduled(cron = "0 0 * * * ?")
   public void createOfferMap() {
     System.out.println("çalıştı");
     final Set<Product> products = getProducts();

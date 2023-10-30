@@ -1,15 +1,16 @@
 package com.shop.urshop.order;
 
 import com.shop.urshop.entity.Order;
-
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public interface OrderService {
-    List<Order> getAll();
+  List<Order> getAll();
 
-    Order getById(int orderId);
+  Order getById(int orderId);
 
-    void add(Order order);
+  void add(float totalAmount, Date orderDate, Integer customerId, Set<Integer> orderItemIds);
 
-    void delete(int orderId);
+  void delete(int orderId);
 }

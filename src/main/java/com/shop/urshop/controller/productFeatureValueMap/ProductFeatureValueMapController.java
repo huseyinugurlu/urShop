@@ -1,48 +1,41 @@
 package com.shop.urshop.controller.productFeatureValueMap;
 
-import com.shop.urshop.controller.BaseController;
-import com.shop.urshop.controller.productCustomerOfferMap.GetProductCustomerOfferMap;
-import com.shop.urshop.productCustomerOfferMap.ProductCustomerOfferMapService;
+import com.shop.urshop.controller.ApiConstants;
 import com.shop.urshop.productFeatureValueMap.ProductFeatureValueMapService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/productfeaturevaluemaps")
-public class ProductFeatureValueMapController extends BaseController {
+@RequestMapping(ApiConstants.BASE_URL + ApiConstants.PRODUCT_FEATURE_VALUE_MAP)
+public class ProductFeatureValueMapController {
 
   private final ProductFeatureValueMapService productFeatureValueMapService;
 
   @Autowired
   public ProductFeatureValueMapController(
-          ProductFeatureValueMapService productFeatureValueMapService) {
+      ProductFeatureValueMapService productFeatureValueMapService) {
     this.productFeatureValueMapService = productFeatureValueMapService;
   }
 
-  @GetMapping("/getAll")
-  public ResponseEntity<?> getAll() {
-    final List<GetProductFeatureValueMap> data =
-            GetProductFeatureValueMap.fromProductFeatureValueMaps(
-                    productFeatureValueMapService.getAll());
-    return success(data);
+  @GetMapping(ApiConstants.GET_ALL)
+  public List<GetProductFeatureValueMap> getAll() {
+    return GetProductFeatureValueMap.fromProductFeatureValueMaps(
+        productFeatureValueMapService.getAll());
   }
 
-  @GetMapping("/getByFeature/{id}")
-  public ResponseEntity<?> getByFeatureIdMapResponse(@PathVariable int id) {
-    final List<GetProductFeatureValueMap> data =
-            GetProductFeatureValueMap.fromProductFeatureValueMaps(productFeatureValueMapService.getMapsByFeatureId(id));
-    return success(data);
+  @GetMapping(ApiConstants.GET_BY_FEATURE_ID + ApiConstants.BY_ID)
+  public List<GetProductFeatureValueMap> getByFeatureIdMapResponse(@PathVariable int id) {
+    return GetProductFeatureValueMap.fromProductFeatureValueMaps(
+        productFeatureValueMapService.getMapsByFeatureId(id));
   }
-  @GetMapping("/getByProduct/{id}")
-  public ResponseEntity<?> getByProductIdMapResponse(@PathVariable int id) {
-    final List<GetProductFeatureValueMap> data =
-            GetProductFeatureValueMap.fromProductFeatureValueMaps(productFeatureValueMapService.getMapsByProductId(id));
-    return success(data);
+
+  @GetMapping(ApiConstants.GET_BY_PRODUCT_ID + ApiConstants.BY_ID)
+  public List<GetProductFeatureValueMap> getByProductIdMapResponse(@PathVariable int id) {
+    return GetProductFeatureValueMap.fromProductFeatureValueMaps(
+        productFeatureValueMapService.getMapsByProductId(id));
   }
 }

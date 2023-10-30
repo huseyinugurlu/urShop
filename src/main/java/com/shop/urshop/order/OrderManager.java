@@ -1,48 +1,61 @@
 package com.shop.urshop.order;
 
-
+import com.shop.urshop.customer.CustomerService;
 import com.shop.urshop.entity.Order;
 import com.shop.urshop.exception.BusinessException;
+import com.shop.urshop.orderItem.OrderItemService;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class OrderManager implements OrderService {
 
-    private final OrderRepository orderRepository;
+  private final OrderRepository orderRepository;
 
-    @Autowired
-    public OrderManager(OrderRepository orderRepository) {
-        this.orderRepository = orderRepository;
-    }
+  private final CustomerService customerService;
 
-    @Override
-    public List<Order> getAll() {
-        return orderRepository.findAll();
-    }
-
-    @Override
-    public Order getById(int orderId) {
-        return  orderRepository.findById(orderId)
-                .orElseThrow(() -> new BusinessException("Order not found!"));
-    }
-
-    @Override
-    public void add(Order order) {
-        this.orderRepository.save(order);
-    }
+  private final OrderItemService orderItemService;
 
 
-    @Override
-    public void delete(int orderId) {
-        if (orderRepository.existsById(orderId)) {
-            this.orderRepository.deleteById(orderId);
-        }else{
-            throw new BusinessException("Order not found!");
-        }
+  @Autowired
+  public OrderManager(OrderRepository orderRepository, CustomerService customerService, OrderItemService orderItemService) {
+    this.orderRepository = orderRepository;
+    this.customerService = customerService;
+    this.orderItemService = orderItemService;
+  }
 
-    }
+  @Override
+  public List<Order> getAll() {
+    return orderRepository.findAll();
+  }
+
+  @Override
+  public Order getById(int orderId) {
+    return orderRepository
+        .findById(orderId)
+        .orElseThrow(() -> new BusinessException("Order not found!"));
+  }
+
+  @Override
+  public void add(float totalAmount, Date orderDate, Integer customerId, Set<Integer> orderItemIds) {
+    Order order =
+        Order.builder()
+            .totalAmount(totalAmount)
+            .orderDate(LocalDate.now())
+            .customer(customerService.getById(customerId))
+            .orderItem(orderItemIds.stream().map(orderItemService::getById).collect(Collectors.toSet()))
+            .build();
+    this.orderRepository.save(order);
+  }
+
+  @Override
+  public void delete(int orderId) {
+    getById(orderId);
+    this.orderRepository.deleteById(orderId);
+  }
 }

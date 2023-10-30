@@ -1,15 +1,13 @@
 package com.shop.urshop.productFeatureValueMap;
 
-import com.shop.urshop.entity.FeatureValue;
 import com.shop.urshop.entity.Product;
 import com.shop.urshop.entity.ProductFeatureValueMap;
 import com.shop.urshop.product.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ProductFeatureValueMapManager implements ProductFeatureValueMapService {
@@ -35,12 +33,7 @@ public class ProductFeatureValueMapManager implements ProductFeatureValueMapServ
 
     @Override
     public List<ProductFeatureValueMap> getMapsByFeatureId(int featureId) {
-        Optional<FeatureValue> featureValueOptional =featureValueRepository.findById(featureId);
-
-        FeatureValue featureValue = featureValueOptional.get();
-        List<ProductFeatureValueMap> maps = new ArrayList<>();
-        maps.add(productFeatureValueMapRepository.findByFeatureValue(featureValue));
-        return maps;
+        return productFeatureValueMapRepository.findProductFeatureValueMapByFeatureValue_Id(featureId);
     }
 
     @Override

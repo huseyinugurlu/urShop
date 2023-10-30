@@ -3,15 +3,16 @@ package com.shop.urshop.category;
 import com.shop.urshop.entity.Category;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CategoryService {
-    List<Category> getAll();
+  List<Category> getAll();
 
-    Category getById(int categoryId);
+  Category getById(int categoryId);
 
-    void add(Category category);
+  void add(String categoryName, Set<Integer> productIds);
 
-    void update(Category category);
+  void update(int id, String name);
 
-    void delete(int categoryId);
+  void delete(int categoryId);
 }

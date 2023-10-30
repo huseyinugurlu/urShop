@@ -3,20 +3,26 @@ package com.shop.urshop.controller.customer;
 import com.shop.urshop.entity.Customer;
 import com.shop.urshop.entity.Order;
 import com.shop.urshop.entity.PaymentCard;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public record GetByIdCustomerResponse(
-        String userName,
-        String email,
-        String creationDate,
-        int customerNumber,
-        Set<Order> order,
-        Set<PaymentCard> paymentCard) {
+    int id,
+    String userName,
+    String email,
+    String creationDate,
+    int customerNumber,
+    Set<Integer> orderIds,
+    Set<Integer> paymentCardIds) {
 
-    public static GetByIdCustomerResponse fromCustomer(Customer customer){
-        return new GetByIdCustomerResponse(customer.getUserName(), customer.getEmail(), customer.getCreationDate(),customer.getCustomerNumber(),customer.getOrder(),customer.getPaymentCard());
-    }
+  public static GetByIdCustomerResponse fromCustomer(Customer customer) {
+    return new GetByIdCustomerResponse(
+        customer.getId(),
+        customer.getName(),
+        customer.getEmail(),
+        customer.getCreationDate(),
+        customer.getPhoneNumber(),
+        customer.getOrder().stream().map(Order::getId).collect(Collectors.toSet()),
+        customer.getPaymentCard().stream().map(PaymentCard::getId).collect(Collectors.toSet()));
+  }
 }

@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-@Table(name = "customer")
+@Table(name = "customers")
 @Getter
 @SuperBuilder
 @AllArgsConstructor
@@ -16,8 +16,8 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class Customer extends User {
 
-  @Column(name = "number")
-  private int customerNumber;
+  @Column
+  private int phoneNumber;
 
   @JsonIgnore
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
@@ -26,5 +26,4 @@ public class Customer extends User {
   @JsonIgnore
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
   private Set<PaymentCard> paymentCard;
-
 }

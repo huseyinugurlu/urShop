@@ -1,6 +1,5 @@
 package com.shop.urshop.controller.paymentCard;
 
-import com.shop.urshop.entity.Customer;
 import java.time.LocalDate;
 
 public record CreatePaymentCardRequest(
@@ -8,4 +7,4 @@ public record CreatePaymentCardRequest(
     String cardHolderName,
     LocalDate expirationDate,
     int cvv,
-    Customer customer) {}
+    Integer customerId) {}

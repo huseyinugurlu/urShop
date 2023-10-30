@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Table(name = "product_feature_value_map")
+@Table(name = "product_feature_value_maps")
 @Getter
 @Setter
 @AllArgsConstructor

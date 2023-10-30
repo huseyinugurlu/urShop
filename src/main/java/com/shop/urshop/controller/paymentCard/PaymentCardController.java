@@ -1,66 +1,57 @@
 package com.shop.urshop.controller.paymentCard;
 
-import com.shop.urshop.controller.BaseController;
-import com.shop.urshop.entity.PaymentCard;
+import com.shop.urshop.controller.ApiConstants;
 import com.shop.urshop.paymentCard.*;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-
 @RestController
-@RequestMapping("/api/paymentCards")
-public class PaymentCardController extends BaseController {
+@RequestMapping(ApiConstants.BASE_URL + ApiConstants.PAYMENT_CARDS)
+public class PaymentCardController {
 
-    private final PaymentCardService paymentCardService;
+  private final PaymentCardService paymentCardService;
 
-    @Autowired
-    public PaymentCardController(PaymentCardService paymentCardService) {
-        this.paymentCardService = paymentCardService;
-    }
+  @Autowired
+  public PaymentCardController(PaymentCardService paymentCardService) {
+    this.paymentCardService = paymentCardService;
+  }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getAll() {
-        final List<GetAllPaymentCardResponse> data=GetAllPaymentCardResponse.fromPaymentCards(paymentCardService.getAll());
-        return success(data);
-    }
+  @GetMapping(ApiConstants.GET_ALL)
+  public List<GetAllPaymentCardResponse> getAll() {
+    return GetAllPaymentCardResponse.fromPaymentCards(paymentCardService.getAll());
+  }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?>  getByIdPaymentCardResponse(@PathVariable int id) {
-        final GetByIdPaymentCardResponse data=GetByIdPaymentCardResponse.fromPaymentCard(paymentCardService.getById(id));
-        return success(data);
-    }
+  @GetMapping(ApiConstants.BY_ID)
+  public GetByIdPaymentCardResponse getByIdPaymentCardResponse(@PathVariable int id) {
+    return GetByIdPaymentCardResponse.fromPaymentCard(paymentCardService.getById(id));
+  }
 
-    @PostMapping("/add")
-    public void add(@RequestBody CreatePaymentCardRequest createPaymentCardRequest) {
-        final PaymentCard paymentCard= PaymentCard.builder()
-                .cardNumber(createPaymentCardRequest.cardNumber())
-                .cardHolderName(createPaymentCardRequest.cardHolderName())
-                .cvv(createPaymentCardRequest.cvv())
-                .expirationDate(createPaymentCardRequest.expirationDate())
-                .customer(createPaymentCardRequest.customer())
-                .build();
-        this.paymentCardService.add(paymentCard);
-    }
+  @PostMapping(ApiConstants.ADD)
+  public void add(@RequestBody CreatePaymentCardRequest createPaymentCardRequest) {
+    this.paymentCardService.add(
+        createPaymentCardRequest.cardNumber(),
+        createPaymentCardRequest.cardHolderName(),
+        createPaymentCardRequest.expirationDate(),
+        createPaymentCardRequest.cvv(),
+        createPaymentCardRequest.customerId());
+  }
 
-    @PutMapping("/update")
-    public void update(@RequestBody final UpdatePaymentCardRequest updatePaymentCardRequest) {
-        PaymentCard paymentCard = PaymentCard.builder()
-                .id(updatePaymentCardRequest.id())
-                .cardNumber(updatePaymentCardRequest.cardNumber())
-                .cardHolderName(updatePaymentCardRequest.cardHolderName())
-                .cvv(updatePaymentCardRequest.cvv())
-                .expirationDate(updatePaymentCardRequest.expirationDate())
-                .customer(updatePaymentCardRequest.customer())
-                .build();
-        this.paymentCardService.update(paymentCard);
-    }
+  @PutMapping(ApiConstants.ADD)
+  public void update(
+      @PathVariable int id, @RequestBody final UpdatePaymentCardRequest updatePaymentCardRequest) {
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
-        this.paymentCardService.delete(id);
-    }
+    this.paymentCardService.update(
+        id,
+        updatePaymentCardRequest.cardNumber(),
+        updatePaymentCardRequest.cardHolderName(),
+        updatePaymentCardRequest.expirationDate(),
+        updatePaymentCardRequest.cvv(),
+        updatePaymentCardRequest.customerId());
+  }
 
+  @DeleteMapping(ApiConstants.BY_ID)
+  public void delete(@PathVariable int id) {
+    this.paymentCardService.delete(id);
+  }
 }

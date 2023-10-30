@@ -9,5 +9,4 @@ public interface ProductCustomerOfferMapService {
   List<ProductCustomerOfferMap> getAll();
 
   List<ProductCustomerOfferMap> getMapsByProductId(int productId);
-
 }

@@ -29,10 +29,7 @@ public class CustomerOfferManager implements CustomerOfferService {
 
   @Override
   public void delete(int offerId) {
-    if (customerOfferRepository.existsById(offerId)) {
-      this.customerOfferRepository.deleteById(offerId);
-    } else {
-      throw new RuntimeException("Customer Offer not found!");
-    }
+    getById(offerId);
+    this.customerOfferRepository.deleteById(offerId);
   }
 }

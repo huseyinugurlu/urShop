@@ -4,15 +4,16 @@ import com.shop.urshop.entity.Product;
 
 import java.util.List;
 
-
 public interface ProductService {
-    List<Product> getAll();
+  List<Product> getAll();
 
-    Product getById(int productId);
+  Product getById(int productId);
 
-    void add(Product product);
+  List<Product> getByCategory(int productId);
 
-    void update(Product product);
+  void add(String name, float price, int stock, String description, int categoryId);
 
-    void delete(int productId);
+  void update(int id, String name, float price, int stock, String description, int categoryId);
+
+  void delete(int productId);
 }

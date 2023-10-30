@@ -4,43 +4,42 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
 
-@Table(name = "product")
+@Table(name = "products")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int productId;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id")
+  private int id;
 
-    @Column(name = "name")
-    private String productName;
+  @Column(name = "name")
+  private String name;
 
-    @Column(name = "price")
-    private float price;
+  @Column(name = "price")
+  private float price;
 
-    @Column(name = "stock")
-    private int stock;
+  @Column(name = "stock")
+  private int stock;
 
-    @Column(name = "description")
-    private String description;
+  @Column(name = "description")
+  private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+  @ManyToOne
+  @JoinColumn(name = "category_id")
+  private Category category;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product")
-    private Set<ProductFeatureValueMap> productFeatureValueMap;
+  @JsonIgnore
+  @OneToMany(mappedBy = "product")
+  private Set<ProductFeatureValueMap> productFeatureValueMap;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product")
-    private Set<ProductCustomerOfferMap> productCustomerOfferMaps;
-
+  @JsonIgnore
+  @OneToMany(mappedBy = "product")
+  private Set<ProductCustomerOfferMap> productCustomerOfferMaps;
 }

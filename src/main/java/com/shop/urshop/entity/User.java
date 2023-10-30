@@ -1,14 +1,13 @@
 package com.shop.urshop.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
-@Table(name = "usr")
+@Table(name = "usrs")
 @Getter
-// @Builder(toBuilder = true)
 @SuperBuilder
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -20,7 +19,7 @@ public class User {
   private int id;
 
   @Column(name = "name")
-  private String userName;
+  private String name;
 
   @Column(name = "e_mail")
   private String email;
