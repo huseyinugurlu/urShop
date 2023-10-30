@@ -32,7 +32,6 @@ public class CategoryController {
     this.categoryService.add(createCategoryRequest.name(), createCategoryRequest.productIds());
   }
 
-  // TODO: 27.10.2023 sorr @PathVariable
   @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
   public void update(
       @RequestParam int id, @RequestBody final UpdateCategoryRequest updateCategoryRequest) {
