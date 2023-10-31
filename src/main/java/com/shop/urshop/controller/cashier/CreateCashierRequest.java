@@ -6,5 +6,4 @@ public record CreateCashierRequest(
     String userName,
     String email,
     String password,
-    LocalDateTime creationDate,
     long cashierNumber) {}

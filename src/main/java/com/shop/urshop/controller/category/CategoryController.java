@@ -3,6 +3,8 @@ package com.shop.urshop.controller.category;
 import com.shop.urshop.category.*;
 import com.shop.urshop.controller.ApiConstants;
 import java.util.List;
+
+import com.shop.urshop.entity.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,13 +31,14 @@ public class CategoryController {
 
   @PostMapping(ApiConstants.ADD)
   public void add(@RequestBody CreateCategoryRequest createCategoryRequest) {
-    this.categoryService.add(createCategoryRequest.name(), createCategoryRequest.productIds());
+    this.categoryService.add(Category.builder().name(createCategoryRequest.name()).build());
   }
 
   @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
   public void update(
-      @RequestParam int id, @RequestBody final UpdateCategoryRequest updateCategoryRequest) {
-    this.categoryService.update(id, updateCategoryRequest.name());
+      @PathVariable int id, @RequestBody final UpdateCategoryRequest updateCategoryRequest) {
+    this.categoryService.update(
+        Category.builder().id(id).name(updateCategoryRequest.name()).build());
   }
 
   @DeleteMapping(ApiConstants.BY_ID)

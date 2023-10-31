@@ -13,13 +13,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CategoryManager implements CategoryService {
   private final CategoryRepository categoryRepository;
-  private final ProductService productService;
 
   @Autowired
   public CategoryManager(
-      CategoryRepository categoryRepository, @Lazy ProductService productService) {
+      CategoryRepository categoryRepository) {
     this.categoryRepository = categoryRepository;
-    this.productService = productService;
   }
 
   @Override
@@ -35,20 +33,15 @@ public class CategoryManager implements CategoryService {
   }
 
   @Override
-  public void add(String categoryName, Set<Integer> productIds) {
-    final Category category =
-        Category.builder()
-                .name(categoryName)
-            .products(productIds.stream().map(productService::getById).collect(Collectors.toSet()))
-            .build();
+  public void add(Category category) {
     this.categoryRepository.save(category);
   }
 
   @Override
-  public void update(int id, String name) {
-    final Category category = getById(id);
-    category.setName(name);
-    this.categoryRepository.save(category);
+  public void update(Category category) {
+    final Category updatedCategory = getById(category.getId());
+    updatedCategory.setName(category.getName());
+    this.categoryRepository.save(updatedCategory);
   }
 
   @Override

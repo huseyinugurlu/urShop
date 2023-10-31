@@ -1,9 +1,12 @@
 package com.shop.urshop.controller.product;
 
+import com.shop.urshop.category.CategoryService;
 import com.shop.urshop.controller.ApiConstants;
+import com.shop.urshop.entity.Product;
 import com.shop.urshop.product.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,10 +14,12 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
   private final ProductService productService;
+  private final CategoryService categoryService;
 
   @Autowired
-  public ProductController(ProductService productService) {
+  public ProductController(ProductService productService, @Lazy CategoryService categoryService) {
     this.productService = productService;
+    this.categoryService = categoryService;
   }
 
   @GetMapping(ApiConstants.GET_ALL)
@@ -35,22 +40,26 @@ public class ProductController {
   @PostMapping(ApiConstants.ADD)
   public void add(@RequestBody CreateProductRequest createProductRequest) {
     this.productService.add(
-        createProductRequest.name(),
-        createProductRequest.price(),
-        createProductRequest.stock(),
-        createProductRequest.description(),
-        createProductRequest.categoryId());
+        Product.builder()
+            .name(createProductRequest.name())
+            .price(createProductRequest.price())
+            .stock(createProductRequest.stock())
+            .description(createProductRequest.description())
+            .category(categoryService.getById(createProductRequest.categoryId()))
+            .build());
   }
 
   @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
   public void update(@PathVariable int id, @RequestBody UpdateProductRequest updateProductRequest) {
     this.productService.update(
-        id,
-        updateProductRequest.name(),
-        updateProductRequest.price(),
-        updateProductRequest.stock(),
-        updateProductRequest.description(),
-        updateProductRequest.categoryId());
+        Product.builder()
+            .id(id)
+            .name(updateProductRequest.name())
+            .price(updateProductRequest.price())
+            .stock(updateProductRequest.stock())
+            .description(updateProductRequest.description())
+            .category(categoryService.getById(updateProductRequest.categoryId()))
+            .build());
   }
 
   @DeleteMapping(ApiConstants.BY_ID)

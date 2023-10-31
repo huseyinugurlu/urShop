@@ -41,8 +41,8 @@ public class CustomerController {
   }
 
   @GetMapping(ApiConstants.BY_ID)
-  public GetByIdCustomerResponse getByIdCustomerResponse(@PathVariable long id) {
-    return GetByIdCustomerResponse.fromCustomer(customerService.getByCustomerNumber(id));
+  public GetByIdCustomerResponse getByIdCustomerResponse(@PathVariable int id) {
+    return GetByIdCustomerResponse.fromCustomer(customerService.getById(id));
   }
 
   @PostMapping(ApiConstants.ADD)
@@ -65,12 +65,7 @@ public class CustomerController {
         Customer.builder()
             .name(updateCustomerRequest.userName())
             .email(updateCustomerRequest.email())
-            .creationDate(String.valueOf(LocalDate.now()))
             .phoneNumber(updateCustomerRequest.customerNumber())
-            .order(
-                updateCustomerRequest.orderIds().stream()
-                    .map(orderService::getById)
-                    .collect(Collectors.toSet()))
             .paymentCard(
                 updateCustomerRequest.paymentCardIds().stream()
                     .map(paymentCardService::getById)

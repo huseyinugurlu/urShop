@@ -11,9 +11,9 @@ public interface ProductService {
 
   List<Product> getByCategory(int productId);
 
-  void add(String name, float price, int stock, String description, int categoryId);
+  void add(Product product);
 
-  void update(int id, String name, float price, int stock, String description, int categoryId);
+  void update(Product product);
 
   void delete(int productId);
 }

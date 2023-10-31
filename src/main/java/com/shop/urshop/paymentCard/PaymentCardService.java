@@ -9,20 +9,9 @@ public interface PaymentCardService {
 
   PaymentCard getById(int categoryId);
 
-  void add(
-      long cardNumber,
-      String cardHolderName,
-      LocalDate expirationDate,
-      int cvv,
-      Integer customerId);
+  void add(PaymentCard paymentCard);
 
-  void update(
-      int id,
-      long cardNumber,
-      String cardHolderName,
-      LocalDate expirationDate,
-      int cvv,
-      Integer customerId);
+  void update(PaymentCard paymentCard);
 
   void delete(int paymentCardId);
 }

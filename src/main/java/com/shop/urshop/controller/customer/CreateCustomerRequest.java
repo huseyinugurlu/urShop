@@ -7,7 +7,5 @@ public record CreateCustomerRequest(
     String userName,
     String email,
     String password,
-    LocalDateTime creationDate,
     int customerNumber,
-    Set<Integer> orderIds,
     Set<Integer> paymentCardIds) {}

@@ -1,9 +1,12 @@
 package com.shop.urshop.controller.paymentCard;
 
 import com.shop.urshop.controller.ApiConstants;
+import com.shop.urshop.customer.CustomerService;
+import com.shop.urshop.entity.PaymentCard;
 import com.shop.urshop.paymentCard.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -11,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentCardController {
 
   private final PaymentCardService paymentCardService;
+  private final CustomerService customerService;
 
   @Autowired
-  public PaymentCardController(PaymentCardService paymentCardService) {
+  public PaymentCardController(
+      PaymentCardService paymentCardService,@Lazy CustomerService customerService) {
     this.paymentCardService = paymentCardService;
+    this.customerService = customerService;
   }
 
   @GetMapping(ApiConstants.GET_ALL)
@@ -30,24 +36,26 @@ public class PaymentCardController {
   @PostMapping(ApiConstants.ADD)
   public void add(@RequestBody CreatePaymentCardRequest createPaymentCardRequest) {
     this.paymentCardService.add(
-        createPaymentCardRequest.cardNumber(),
-        createPaymentCardRequest.cardHolderName(),
-        createPaymentCardRequest.expirationDate(),
-        createPaymentCardRequest.cvv(),
-        createPaymentCardRequest.customerId());
+        PaymentCard.builder()
+            .cardHolderName(createPaymentCardRequest.cardHolderName())
+            .cvv(createPaymentCardRequest.cvv())
+            .expirationDate(createPaymentCardRequest.expirationDate())
+            .cardNumber(createPaymentCardRequest.cardNumber())
+            .customer(customerService.getById(createPaymentCardRequest.customerId()))
+            .build());
   }
 
-  @PutMapping(ApiConstants.ADD)
+  @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
   public void update(
       @PathVariable int id, @RequestBody final UpdatePaymentCardRequest updatePaymentCardRequest) {
-
     this.paymentCardService.update(
-        id,
-        updatePaymentCardRequest.cardNumber(),
-        updatePaymentCardRequest.cardHolderName(),
-        updatePaymentCardRequest.expirationDate(),
-        updatePaymentCardRequest.cvv(),
-        updatePaymentCardRequest.customerId());
+        PaymentCard.builder()
+            .id(id)
+            .cardHolderName(updatePaymentCardRequest.cardHolderName())
+            .cvv(updatePaymentCardRequest.cvv())
+            .expirationDate(updatePaymentCardRequest.expirationDate())
+            .cardNumber(updatePaymentCardRequest.cardNumber())
+            .build());
   }
 
   @DeleteMapping(ApiConstants.BY_ID)

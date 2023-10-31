@@ -29,8 +29,8 @@ public class CashierController {
   }
 
   @GetMapping(ApiConstants.BY_ID)
-  public GetByIdCashierResponse getByIdCashierResponse(@PathVariable long customerNumber) {
-    return GetByIdCashierResponse.fromCustomer(cashierService.getByCashierNumber(customerNumber));
+  public GetByIdCashierResponse getByIdCashierResponse(@PathVariable int id) {
+    return GetByIdCashierResponse.fromCustomer(cashierService.getById(id));
   }
 
   @PostMapping(ApiConstants.ADD)
@@ -41,19 +41,21 @@ public class CashierController {
             .email(createCashierRequest.email())
             .password(passwordEncoder.encode(createCashierRequest.password()))
             .creationDate(String.valueOf(LocalDate.now()))
+            .phoneNumber(createCashierRequest.cashierNumber())
             .authority(Authority.ROLE_CASHIER.getAuthority())
             .build();
     this.cashierService.add(cashier);
   }
 
-  @PutMapping(ApiConstants.UPDATE)
-  public void update(@RequestBody final UpdateCashierRequest updateCashierRequest) {
+  @PutMapping(ApiConstants.UPDATE + ApiConstants.BY_ID)
+  public void update(
+      @PathVariable int id, @RequestBody final UpdateCashierRequest updateCashierRequest) {
     Cashier cashier =
         Cashier.builder()
+            .id(id)
             .name(updateCashierRequest.userName())
             .email(updateCashierRequest.email())
-            .creationDate(String.valueOf(LocalDate.now()))
-                .phoneNumber(updateCashierRequest.cashierNumber())
+            .phoneNumber(updateCashierRequest.cashierNumber())
             .build();
     this.cashierService.update(cashier);
   }

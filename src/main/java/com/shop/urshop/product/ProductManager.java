@@ -1,24 +1,18 @@
 package com.shop.urshop.product;
 
-import com.shop.urshop.category.CategoryService;
 import com.shop.urshop.entity.Product;
 import com.shop.urshop.exception.BusinessException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ProductManager implements ProductService {
   private final ProductRepository productRepository;
 
-  private final CategoryService categoryService;
-
   @Autowired
-  public ProductManager(
-      ProductRepository productRepository, @Lazy CategoryService categoryService) {
+  public ProductManager(ProductRepository productRepository) {
     this.productRepository = productRepository;
-    this.categoryService = categoryService;
   }
 
   @Override
@@ -39,28 +33,19 @@ public class ProductManager implements ProductService {
   }
 
   @Override
-  public void add(String name, float price, int stock, String description, int categoryId) {
-    Product product =
-        Product.builder()
-            .name(name)
-            .price(price)
-            .stock(stock)
-            .description(description)
-            .category(categoryService.getById(categoryId))
-            .build();
+  public void add(Product product) {
     this.productRepository.save(product);
   }
 
   @Override
-  public void update(
-      int id, String name, float price, int stock, String description, int categoryId) {
-    final Product product = getById(id);
-    product.setName(name);
-    product.setStock(stock);
-    product.setPrice(price);
-    product.setDescription(description);
-    product.setCategory(categoryService.getById(categoryId));
-    this.productRepository.save(product);
+  public void update(Product product) {
+    final Product updatedProduct = getById(product.getId());
+    updatedProduct.setName(product.getName());
+    updatedProduct.setStock(product.getStock());
+    updatedProduct.setPrice(product.getPrice());
+    updatedProduct.setDescription(product.getDescription());
+    updatedProduct.setCategory(product.getCategory());
+    this.productRepository.save(updatedProduct);
   }
 
   @Override

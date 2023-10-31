@@ -16,5 +16,6 @@ public interface CashierService {
 
   void update(Cashier cashier);
 
-  void delete(int cashierNumber);
+  void delete(int id);
+
 }

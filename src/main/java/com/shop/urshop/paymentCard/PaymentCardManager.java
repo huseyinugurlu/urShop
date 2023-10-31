@@ -13,13 +13,11 @@ public class PaymentCardManager implements PaymentCardService {
 
   private final PaymentCardRepository paymentCardRepository;
 
-  private final CustomerService customerService;
 
   @Autowired
   public PaymentCardManager(
-      PaymentCardRepository paymentCardRepository, CustomerService customerService) {
+      PaymentCardRepository paymentCardRepository) {
     this.paymentCardRepository = paymentCardRepository;
-    this.customerService = customerService;
   }
 
   @Override
@@ -35,39 +33,18 @@ public class PaymentCardManager implements PaymentCardService {
   }
 
   @Override
-  public void add(
-      long cardNumber,
-      String cardHolderName,
-      LocalDate expirationDate,
-      int cvv,
-      Integer customerId) {
-    final PaymentCard paymentCard =
-        PaymentCard.builder()
-            .cardNumber(cardNumber)
-            .cardHolderName(cardHolderName)
-            .cvv(cvv)
-            .expirationDate(expirationDate)
-            .customer(customerService.getById(customerId))
-            .build();
+  public void add(PaymentCard paymentCard) {
     this.paymentCardRepository.save(paymentCard);
   }
 
   @Override
-  public void update(
-      int id,
-      long cardNumber,
-      String cardHolderName,
-      LocalDate expirationDate,
-      int cvv,
-      Integer customerId) {
-
-    final PaymentCard paymentCard = getById(id);
-    paymentCard.setCardNumber(cardNumber);
-    paymentCard.setCardHolderName(cardHolderName);
-    paymentCard.setExpirationDate(expirationDate);
-    paymentCard.setCvv(cvv);
-    paymentCard.setCustomer(customerService.getById(customerId));
-    this.paymentCardRepository.save(paymentCard);
+  public void update(PaymentCard paymentCard) {
+    final PaymentCard updatedPaymentCard = getById(paymentCard.getId());
+    updatedPaymentCard.setCardNumber(paymentCard.getCardNumber());
+    updatedPaymentCard.setCardHolderName(paymentCard.getCardHolderName());
+    updatedPaymentCard.setExpirationDate(paymentCard.getExpirationDate());
+    updatedPaymentCard.setCvv(paymentCard.getCvv());
+    this.paymentCardRepository.save(updatedPaymentCard);
   }
 
   @Override

@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 
 @Table(name = "cashiers")
 @Getter
+@Setter
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor

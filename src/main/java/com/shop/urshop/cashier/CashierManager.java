@@ -39,12 +39,16 @@ public class CashierManager implements CashierService {
 
   @Override
   public void update(Cashier cashier) {
-    this.cashierRepository.save(cashier);
+    Cashier updatedCashier=getById(cashier.getId());
+    updatedCashier.setName(cashier.getName());
+    updatedCashier.setEmail(cashier.getEmail());
+    updatedCashier.setPhoneNumber(cashier.getPhoneNumber());
+    this.cashierRepository.save(updatedCashier);
   }
 
   @Override
   public void delete(int id) {
-    getByCashierNumber(id);
+    getById(id);
     this.cashierRepository.deleteById(id);
   }
 }

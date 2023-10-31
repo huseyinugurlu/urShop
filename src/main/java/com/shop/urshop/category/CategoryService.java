@@ -10,9 +10,9 @@ public interface CategoryService {
 
   Category getById(int categoryId);
 
-  void add(String categoryName, Set<Integer> productIds);
+  void add(Category category);
 
-  void update(int id, String name);
+  void update(Category category);
 
   void delete(int categoryId);
 }

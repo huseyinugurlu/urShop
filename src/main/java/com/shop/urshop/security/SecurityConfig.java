@@ -30,21 +30,20 @@ public class SecurityConfig {
             auth -> {
               auth.requestMatchers(
                       (ApiConstants.BASE_URL + ApiConstants.CATEGORIES + "/**"),
+                              (ApiConstants.BASE_URL + ApiConstants.CATEGORIES +ApiConstants.UPDATE + "/**"),
                       (ApiConstants.BASE_URL + ApiConstants.PRODUCTS + "/**"),
                       (ApiConstants.BASE_URL + ApiConstants.PRODUCT_FEATURE_VALUE_MAP + "/**"),
+                      (ApiConstants.BASE_URL + ApiConstants.PAYMENT_CARDS + "/**"),
+                      (ApiConstants.BASE_URL + ApiConstants.ORDERS + "/**"),
+                      (ApiConstants.BASE_URL + ApiConstants.CASHIER + "/**"),
+                      (ApiConstants.BASE_URL + ApiConstants.CUSTOMER + "/**"),
+                      (ApiConstants.BASE_URL + ApiConstants.PRODUCT_CUSTOMER_OFFER_MAP + "/**"),
+                      (ApiConstants.BASE_URL + ApiConstants.CUSTOMER_OFFER + "/**"),
                       "/swagger-ui/**",
                       "/v3/api-docs/**",
                       (ApiConstants.BASE_URL + ApiConstants.AUTH + "/**"))
                   .permitAll()
-                  .requestMatchers(
-                          (ApiConstants.BASE_URL + ApiConstants.USER + "/**"),
-                          (ApiConstants.BASE_URL + ApiConstants.PAYMENT_CARDS + "/**"),
-                          (ApiConstants.BASE_URL + ApiConstants.ORDERS + "/**"),
-                          (ApiConstants.BASE_URL + ApiConstants.CASHIER + "/**"),
-                          (ApiConstants.BASE_URL + ApiConstants.CUSTOMER + "/**"),
-                          (ApiConstants.BASE_URL + ApiConstants.PRODUCT_CUSTOMER_OFFER_MAP + "/**"),
-                          (ApiConstants.BASE_URL + ApiConstants.CUSTOMER_OFFER + "/**")
-                          )
+                  .requestMatchers((ApiConstants.BASE_URL + ApiConstants.USER + "/**"))
                   .hasAnyAuthority(Authority.ROLE_CUSTOMER.getAuthority());
             })
         .csrf(AbstractHttpConfigurer::disable)
