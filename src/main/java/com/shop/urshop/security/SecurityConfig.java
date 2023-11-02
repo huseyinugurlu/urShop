@@ -30,7 +30,6 @@ public class SecurityConfig {
             auth -> {
               auth.requestMatchers(
                       (ApiConstants.BASE_URL + ApiConstants.CATEGORIES + "/**"),
-                              (ApiConstants.BASE_URL + ApiConstants.CATEGORIES +ApiConstants.UPDATE + "/**"),
                       (ApiConstants.BASE_URL + ApiConstants.PRODUCTS + "/**"),
                       (ApiConstants.BASE_URL + ApiConstants.PRODUCT_FEATURE_VALUE_MAP + "/**"),
                       (ApiConstants.BASE_URL + ApiConstants.PAYMENT_CARDS + "/**"),

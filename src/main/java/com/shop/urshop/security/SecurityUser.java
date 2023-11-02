@@ -1,6 +1,5 @@
 package com.shop.urshop.security;
 
-
 import java.util.Collection;
 import java.util.Collections;
 import lombok.Builder;

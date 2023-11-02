@@ -1,6 +1,7 @@
 package com.shop.urshop.user;
 
 import com.shop.urshop.controller.auth.AuthRequest;
+import com.shop.urshop.controller.auth.AuthResponse;
 import com.shop.urshop.entity.User;
 import java.util.List;
 
@@ -17,5 +18,5 @@ public interface UserService {
 
   void changePassword(String newPassword, String jwtToken);
 
-  String authenticate(AuthRequest authRequest);
+  AuthResponse authenticate(AuthRequest authRequest);
 }

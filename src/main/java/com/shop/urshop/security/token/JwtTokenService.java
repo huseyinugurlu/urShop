@@ -15,9 +15,7 @@ public class JwtTokenService implements TokenService {
   private final JwtEncoder jwtEncoder;
   private final JwsHeader jwsHeader;
 
-  public JwtTokenService(
-      final JwtProperties jwtProperties,
-      final JwtEncoder jwtEncoder) {
+  public JwtTokenService(final JwtProperties jwtProperties, final JwtEncoder jwtEncoder) {
     this.jwtProperties = jwtProperties;
     this.jwtEncoder = jwtEncoder;
     jwsHeader = JwsHeader.with(jwtProperties::getAlgorithm).build();
@@ -36,7 +34,7 @@ public class JwtTokenService implements TokenService {
         .issuer(jwtProperties.getIssuer())
         .issuedAt(now)
         .expiresAt(expiresAt)
-        .subject(securityUser.toString())//?????????????????
+        .subject(securityUser.toString()) // ?????????????????
         .claim(CLAIMS_USER, securityUser)
         .build();
   }
@@ -48,7 +46,7 @@ public class JwtTokenService implements TokenService {
 
     if (userClaims != null) {
       User user = new User();
-      user.setId( Integer.parseInt(userClaims.get("id").toString()));
+      user.setId(Integer.parseInt(userClaims.get("id").toString()));
       user.setName((String) userClaims.get("name"));
       user.setEmail((String) userClaims.get("email"));
       user.setPassword((String) userClaims.get("password"));
@@ -59,5 +57,4 @@ public class JwtTokenService implements TokenService {
 
     return null;
   }
-
 }

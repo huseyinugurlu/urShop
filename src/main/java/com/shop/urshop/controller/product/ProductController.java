@@ -2,6 +2,7 @@ package com.shop.urshop.controller.product;
 
 import com.shop.urshop.category.CategoryService;
 import com.shop.urshop.controller.ApiConstants;
+import com.shop.urshop.entity.Category;
 import com.shop.urshop.entity.Product;
 import com.shop.urshop.product.*;
 import java.util.List;
@@ -14,12 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class ProductController {
 
   private final ProductService productService;
-  private final CategoryService categoryService;
 
   @Autowired
-  public ProductController(ProductService productService, @Lazy CategoryService categoryService) {
+  public ProductController(ProductService productService) {
     this.productService = productService;
-    this.categoryService = categoryService;
   }
 
   @GetMapping(ApiConstants.GET_ALL)
@@ -45,7 +44,7 @@ public class ProductController {
             .price(createProductRequest.price())
             .stock(createProductRequest.stock())
             .description(createProductRequest.description())
-            .category(categoryService.getById(createProductRequest.categoryId()))
+            .category(Category.builder().id(createProductRequest.categoryId()).build())
             .build());
   }
 
@@ -58,7 +57,7 @@ public class ProductController {
             .price(updateProductRequest.price())
             .stock(updateProductRequest.stock())
             .description(updateProductRequest.description())
-            .category(categoryService.getById(updateProductRequest.categoryId()))
+            .category(Category.builder().id(updateProductRequest.categoryId()).build())
             .build());
   }
 

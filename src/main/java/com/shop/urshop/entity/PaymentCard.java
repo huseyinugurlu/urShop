@@ -1,10 +1,8 @@
 package com.shop.urshop.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.time.LocalDate;
-import java.util.Date;
+import lombok.*;
 
 @Table(name = "payment_cards")
 @Getter

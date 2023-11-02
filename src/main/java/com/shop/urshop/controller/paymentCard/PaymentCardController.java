@@ -2,6 +2,7 @@ package com.shop.urshop.controller.paymentCard;
 
 import com.shop.urshop.controller.ApiConstants;
 import com.shop.urshop.customer.CustomerService;
+import com.shop.urshop.entity.Customer;
 import com.shop.urshop.entity.PaymentCard;
 import com.shop.urshop.paymentCard.*;
 import java.util.List;
@@ -14,13 +15,10 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentCardController {
 
   private final PaymentCardService paymentCardService;
-  private final CustomerService customerService;
 
   @Autowired
-  public PaymentCardController(
-      PaymentCardService paymentCardService,@Lazy CustomerService customerService) {
+  public PaymentCardController(PaymentCardService paymentCardService) {
     this.paymentCardService = paymentCardService;
-    this.customerService = customerService;
   }
 
   @GetMapping(ApiConstants.GET_ALL)
@@ -41,7 +39,7 @@ public class PaymentCardController {
             .cvv(createPaymentCardRequest.cvv())
             .expirationDate(createPaymentCardRequest.expirationDate())
             .cardNumber(createPaymentCardRequest.cardNumber())
-            .customer(customerService.getById(createPaymentCardRequest.customerId()))
+            .customer(Customer.builder().id(createPaymentCardRequest.customerId()).build())
             .build());
   }
 

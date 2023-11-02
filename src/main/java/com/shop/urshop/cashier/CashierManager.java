@@ -39,7 +39,7 @@ public class CashierManager implements CashierService {
 
   @Override
   public void update(Cashier cashier) {
-    Cashier updatedCashier=getById(cashier.getId());
+    Cashier updatedCashier = getById(cashier.getId());
     updatedCashier.setName(cashier.getName());
     updatedCashier.setEmail(cashier.getEmail());
     updatedCashier.setPhoneNumber(cashier.getPhoneNumber());

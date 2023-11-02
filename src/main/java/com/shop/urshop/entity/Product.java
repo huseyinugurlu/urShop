@@ -2,9 +2,8 @@ package com.shop.urshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.Set;
+import lombok.*;
 
 @Table(name = "products")
 @Getter

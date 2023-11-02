@@ -2,7 +2,6 @@ package com.shop.urshop.productCustomerOfferMap;
 
 import com.shop.urshop.entity.ProductCustomerOfferMap;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +22,6 @@ public class ProductCustomerOfferMapManager implements ProductCustomerOfferMapSe
 
   @Override
   public List<ProductCustomerOfferMap> getMapsByProductId(int productId) {
-    return productCustomerOfferMapRepository.findProductCustomerOfferMapByProduct_id(
-        productId);
+    return productCustomerOfferMapRepository.findProductCustomerOfferMapByProduct_id(productId);
   }
 }

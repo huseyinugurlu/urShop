@@ -18,8 +18,7 @@ import lombok.experimental.SuperBuilder;
 @Entity
 public class Customer extends User {
 
-  @Column
-  private int phoneNumber;
+  @Column private int phoneNumber;
 
   @JsonIgnore
   @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)

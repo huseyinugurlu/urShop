@@ -2,12 +2,9 @@ package com.shop.urshop.productFeatureValueMap;
 
 import com.shop.urshop.entity.Product;
 import com.shop.urshop.entity.ProductFeatureValueMap;
-import com.shop.urshop.product.ProductRepository;
+import com.shop.urshop.product.ProductService;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
-import com.shop.urshop.product.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +35,7 @@ public class ProductFeatureValueMapManager implements ProductFeatureValueMapServ
 
   @Override
   public List<ProductFeatureValueMap> getMapsByProductId(int productId) {
-    Product product =  productService.getById(productId);
+    Product product = productService.getById(productId);
     List<ProductFeatureValueMap> maps = new ArrayList<>();
     maps.add(productFeatureValueMapRepository.findByProduct(product));
     return maps;

@@ -14,6 +14,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @Entity
 public class Cashier extends User {
-  @Column
-  private long phoneNumber;
+  @Column private long phoneNumber;
 }

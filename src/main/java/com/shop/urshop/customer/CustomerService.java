@@ -1,7 +1,6 @@
 package com.shop.urshop.customer;
 
 import com.shop.urshop.entity.Customer;
-
 import java.util.List;
 
 public interface CustomerService {

@@ -2,9 +2,8 @@ package com.shop.urshop.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
-
 import java.util.Set;
+import lombok.*;
 
 @Table(name = "categories")
 @Getter
@@ -25,5 +24,4 @@ public class Category {
   @JsonIgnore
   @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
   private Set<Product> products;
-
 }

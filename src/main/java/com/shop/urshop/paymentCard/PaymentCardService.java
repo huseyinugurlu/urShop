@@ -1,7 +1,6 @@
 package com.shop.urshop.paymentCard;
 
 import com.shop.urshop.entity.PaymentCard;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface PaymentCardService {

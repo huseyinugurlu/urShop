@@ -1,8 +1,6 @@
 package com.shop.urshop.cashier;
 
 import com.shop.urshop.entity.Cashier;
-import com.shop.urshop.entity.Customer;
-
 import java.util.List;
 
 public interface CashierService {
@@ -17,5 +15,4 @@ public interface CashierService {
   void update(Cashier cashier);
 
   void delete(int id);
-
 }

@@ -23,7 +23,7 @@ public class AuthController {
   }
 
   @PostMapping(ApiConstants.LOGIN)
-  public String authenticate(@RequestBody AuthRequest authRequest) {
+  public AuthResponse authenticate(@RequestBody AuthRequest authRequest) {
     return userService.authenticate(authRequest);
   }
 }

@@ -21,9 +21,11 @@ public class OrderManager implements OrderService {
 
   private final OrderItemService orderItemService;
 
-
   @Autowired
-  public OrderManager(OrderRepository orderRepository, CustomerService customerService, OrderItemService orderItemService) {
+  public OrderManager(
+      OrderRepository orderRepository,
+      CustomerService customerService,
+      OrderItemService orderItemService) {
     this.orderRepository = orderRepository;
     this.customerService = customerService;
     this.orderItemService = orderItemService;
@@ -42,13 +44,15 @@ public class OrderManager implements OrderService {
   }
 
   @Override
-  public void add(float totalAmount, Date orderDate, Integer customerId, Set<Integer> orderItemIds) {
+  public void add(
+      float totalAmount, Date orderDate, Integer customerId, Set<Integer> orderItemIds) {
     Order order =
         Order.builder()
             .totalAmount(totalAmount)
             .orderDate(LocalDate.now())
             .customer(customerService.getById(customerId))
-            .orderItem(orderItemIds.stream().map(orderItemService::getById).collect(Collectors.toSet()))
+            .orderItem(
+                orderItemIds.stream().map(orderItemService::getById).collect(Collectors.toSet()))
             .build();
     this.orderRepository.save(order);
   }

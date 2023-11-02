@@ -55,7 +55,7 @@ public class CashierController {
             .id(id)
             .name(updateCashierRequest.userName())
             .email(updateCashierRequest.email())
-            .phoneNumber(updateCashierRequest.cashierNumber())
+            .phoneNumber(updateCashierRequest.phoneNumber())
             .build();
     this.cashierService.update(cashier);
   }

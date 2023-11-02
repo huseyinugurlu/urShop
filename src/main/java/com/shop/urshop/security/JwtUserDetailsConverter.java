@@ -1,9 +1,8 @@
 package com.shop.urshop.security;
 
-import java.util.List;
-
 import com.shop.urshop.entity.User;
 import com.shop.urshop.security.token.TokenService;
+import java.util.List;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

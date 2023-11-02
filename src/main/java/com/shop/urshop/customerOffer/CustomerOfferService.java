@@ -4,9 +4,9 @@ import com.shop.urshop.entity.CustomerOffer;
 import java.util.List;
 
 public interface CustomerOfferService {
-    List<CustomerOffer> getAll();
+  List<CustomerOffer> getAll();
 
-    CustomerOffer getById(int offerId);
+  CustomerOffer getById(int offerId);
 
-    void delete(int offerId);
+  void delete(int offerId);
 }

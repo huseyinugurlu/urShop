@@ -5,8 +5,9 @@ import com.shop.urshop.entity.ProductFeatureValueMap;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductFeatureValueMapRepository extends JpaRepository<ProductFeatureValueMap, Integer> {
-    List<ProductFeatureValueMap> findProductFeatureValueMapByFeatureValue_Id(Integer id);
+public interface ProductFeatureValueMapRepository
+    extends JpaRepository<ProductFeatureValueMap, Integer> {
+  List<ProductFeatureValueMap> findProductFeatureValueMapByFeatureValue_Id(Integer id);
 
-    ProductFeatureValueMap findByProduct(Product product);
+  ProductFeatureValueMap findByProduct(Product product);
 }

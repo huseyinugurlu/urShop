@@ -1,9 +1,7 @@
 package com.shop.urshop.paymentCard;
 
-import com.shop.urshop.customer.CustomerService;
 import com.shop.urshop.entity.PaymentCard;
 import com.shop.urshop.exception.BusinessException;
-import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,10 +11,8 @@ public class PaymentCardManager implements PaymentCardService {
 
   private final PaymentCardRepository paymentCardRepository;
 
-
   @Autowired
-  public PaymentCardManager(
-      PaymentCardRepository paymentCardRepository) {
+  public PaymentCardManager(PaymentCardRepository paymentCardRepository) {
     this.paymentCardRepository = paymentCardRepository;
   }
 

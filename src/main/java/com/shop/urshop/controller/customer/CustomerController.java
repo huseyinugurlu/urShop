@@ -3,7 +3,7 @@ package com.shop.urshop.controller.customer;
 import com.shop.urshop.controller.ApiConstants;
 import com.shop.urshop.customer.CustomerService;
 import com.shop.urshop.entity.Customer;
-import com.shop.urshop.order.OrderService;
+import com.shop.urshop.entity.PaymentCard;
 import com.shop.urshop.paymentCard.PaymentCardService;
 import com.shop.urshop.security.Authority;
 import java.time.LocalDate;
@@ -18,19 +18,15 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
   private final CustomerService customerService;
 
-  private final OrderService orderService;
-
   private final PaymentCardService paymentCardService;
   private final PasswordEncoder passwordEncoder;
 
   @Autowired
   public CustomerController(
       CustomerService customerService,
-      OrderService orderService,
       PaymentCardService paymentCardService,
       PasswordEncoder passwordEncoder) {
     this.customerService = customerService;
-    this.orderService = orderService;
     this.paymentCardService = paymentCardService;
     this.passwordEncoder = passwordEncoder;
   }
@@ -54,6 +50,10 @@ public class CustomerController {
             .phoneNumber(createCustomerRequest.customerNumber())
             .password(passwordEncoder.encode(createCustomerRequest.password()))
             .creationDate(String.valueOf(LocalDate.now()))
+            .paymentCard(
+                createCustomerRequest.paymentCardIds().stream()
+                    .map(paymentCardIs -> PaymentCard.builder().id(paymentCardIs).build())
+                    .collect(Collectors.toSet()))
             .authority(Authority.ROLE_CUSTOMER.getAuthority())
             .build();
     this.customerService.add(customer);
@@ -65,10 +65,10 @@ public class CustomerController {
         Customer.builder()
             .name(updateCustomerRequest.userName())
             .email(updateCustomerRequest.email())
-            .phoneNumber(updateCustomerRequest.customerNumber())
+            .phoneNumber(updateCustomerRequest.phoneNumber())
             .paymentCard(
                 updateCustomerRequest.paymentCardIds().stream()
-                    .map(paymentCardService::getById)
+                    .map(paymentCardIs -> PaymentCard.builder().id(paymentCardIs).build())
                     .collect(Collectors.toSet()))
             .build();
     this.customerService.update(customer);

@@ -1,6 +1,7 @@
 package com.shop.urshop.user;
 
 import com.shop.urshop.controller.auth.AuthRequest;
+import com.shop.urshop.controller.auth.AuthResponse;
 import com.shop.urshop.entity.User;
 import com.shop.urshop.exception.BusinessException;
 import com.shop.urshop.security.Authority;
@@ -91,10 +92,10 @@ public class UserManager implements UserService {
   }
 
   @Override
-  public String authenticate(AuthRequest authRequest) {
+  public AuthResponse authenticate(AuthRequest authRequest) {
     final String token;
     Authority authority = Authority.ROLE_CUSTOMER;
-    var user = userRepository.findByName(authRequest.getUsername());
+    var user = userRepository.findByName(authRequest.username());
     if (Objects.nonNull(user)) {
       if (Authority.ROLE_CASHIER.getAuthority().equals(user.getAuthority())) {
         authority = Authority.ROLE_CASHIER;
@@ -110,6 +111,6 @@ public class UserManager implements UserService {
     } else {
       throw new UsernameNotFoundException("invalid user request !");
     }
-    return token;
+    return new AuthResponse(token);
   }
 }
