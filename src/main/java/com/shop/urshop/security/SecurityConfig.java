@@ -38,12 +38,11 @@ public class SecurityConfig {
                       (ApiConstants.BASE_URL + ApiConstants.CUSTOMER + "/**"),
                       (ApiConstants.BASE_URL + ApiConstants.PRODUCT_CUSTOMER_OFFER_MAP + "/**"),
                       (ApiConstants.BASE_URL + ApiConstants.CUSTOMER_OFFER + "/**"),
+                      (ApiConstants.BASE_URL + ApiConstants.USER + "/**"),
                       "/swagger-ui/**",
                       "/v3/api-docs/**",
                       (ApiConstants.BASE_URL + ApiConstants.AUTH + "/**"))
-                  .permitAll()
-                  .requestMatchers((ApiConstants.BASE_URL + ApiConstants.USER + "/**"))
-                  .hasAnyAuthority(Authority.ROLE_CUSTOMER.getAuthority());
+                  .permitAll();
             })
         .csrf(AbstractHttpConfigurer::disable)
         .oauth2ResourceServer(

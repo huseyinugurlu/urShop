@@ -34,7 +34,7 @@ public class JwtTokenService implements TokenService {
         .issuer(jwtProperties.getIssuer())
         .issuedAt(now)
         .expiresAt(expiresAt)
-        .subject(securityUser.toString()) // ?????????????????
+        .subject(securityUser.toString())
         .claim(CLAIMS_USER, securityUser)
         .build();
   }

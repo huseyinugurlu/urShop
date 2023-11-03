@@ -59,10 +59,11 @@ public class CustomerController {
     this.customerService.add(customer);
   }
 
-  @PutMapping(ApiConstants.UPDATE)
-  public void update(@RequestBody final UpdateCustomerRequest updateCustomerRequest) {
+  @PutMapping(ApiConstants.UPDATE+ApiConstants.BY_ID)
+  public void update(@PathVariable int id,@RequestBody final UpdateCustomerRequest updateCustomerRequest) {
     Customer customer =
         Customer.builder()
+                .id(id)
             .name(updateCustomerRequest.userName())
             .email(updateCustomerRequest.email())
             .phoneNumber(updateCustomerRequest.phoneNumber())

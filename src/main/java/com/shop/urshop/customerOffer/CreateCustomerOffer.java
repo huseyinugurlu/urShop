@@ -53,7 +53,7 @@ public class CreateCustomerOffer {
 
   @Scheduled(cron = "0 0 * * * ?")
   public void createOfferMap() {
-    System.out.println("çalıştı");
+    System.out.println("runned");
     final Set<Product> products = getProducts();
     final CustomerOffer customerOffer = createCustomerOffer(products);
     for (Product product : products) {
@@ -63,13 +63,13 @@ public class CreateCustomerOffer {
         if (totalAmount != map.getCustomerOffer().getTotalAmount()) {
           customerOfferRepository.updateTotalAmountById(
               totalAmount, map.getCustomerOffer().getId());
-          System.out.println("güncellendi");
+          System.out.println("updated");
         }
       } else {
         ProductCustomerOfferMap productCustomerOfferMap =
             ProductCustomerOfferMap.builder().customerOffer(customerOffer).product(product).build();
         productCustomerOfferMapRepository.save(productCustomerOfferMap);
-        System.out.println("eklendi");
+        System.out.println("added");
       }
     }
   }
